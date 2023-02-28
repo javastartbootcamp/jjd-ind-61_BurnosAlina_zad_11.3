@@ -4,12 +4,12 @@ public class ComponentParameters {
 
     static final int ADDITIONAL_FREQUENCY = 100;
     private int frequency;
-    private int optimalTemp;
+    private int currentTemp;
     private int maxTemp;
 
-    public ComponentParameters(int frequency, int optimalTemp, int maxTemp) {
+    public ComponentParameters(int frequency, int currentTemp, int maxTemp) {
         this.frequency = frequency;
-        this.optimalTemp = optimalTemp;
+        this.currentTemp = currentTemp;
         this.maxTemp = maxTemp;
     }
 
@@ -18,11 +18,16 @@ public class ComponentParameters {
     }
 
     private int increaseTemp(int temp) {
-        return optimalTemp += temp;
+        return currentTemp += temp;
+    }
+
+    private boolean canFrequencyBeIncrease(int increaseTemp) {
+        return currentTemp + increaseTemp < maxTemp;
     }
 
     void overclock(int increaseTemp) {
-        if (increaseTemp(increaseTemp) < maxTemp) {
+        if (canFrequencyBeIncrease(increaseTemp)) {
+            increaseTemp(increaseTemp);
             increaseFrequency();
         } else {
             throw new TooHighTemperatureException("Nie można więcej podkręcić, ryzyko przegrzania!");

@@ -10,9 +10,9 @@ public class Main {
         HardDrive hardDrive = new HardDrive("superDrive", "DriveProducer", "789456", 128);
         Computer computer = new Computer(processor, memory, hardDrive);
         try {
-            memory.overclock();
-            memory.overclock();
-            memory.overclock();
+            processor.overclock();
+            processor.overclock();
+            processor.overclock();
         } catch (TooHighTemperatureException e) {
             System.err.println(e.getMessage());
         }
